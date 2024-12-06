@@ -1,18 +1,32 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
-namespace LabWork
+class Program
 {
-    // Даний проект є шаблоном для виконання лабораторних робіт
-    // з курсу "Об'єктно-орієнтоване програмування та патерни проектування"
-    // Необхідно змінювати і дописувати код лише в цьому проекті
-    // Відео-інструкції щодо роботи з github можна переглянути 
-    // за посиланням https://www.youtube.com/@ViktorZhukovskyy/videos 
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        Console.WriteLine("Введіть текст для перевірки:");
+        string inputText = Console.ReadLine();
+
+        // Регулярний вираз для перевірки, чи всі слова починаються з великої літери
+        string pattern = "\\b[A-ZА-ЯЁ][a-zа-яё]*\\b";
+
+        // Знайти всі слова в тексті
+        MatchCollection matches = Regex.Matches(inputText, pattern);
+
+        // Розбиваємо текст на слова
+        string[] words = inputText.Split(new char[] { ' ', '\t', '\n', '\r', '.', ',', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
+
+        // Перевірка
+        bool allWordsStartWithCapital = matches.Count == words.Length;
+
+        if (allWordsStartWithCapital)
         {
-            
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Всі слова починаються з великої літери.");
+        }
+        else
+        {
+            Console.WriteLine("Не всі слова починаються з великої літери.");
         }
     }
 }
