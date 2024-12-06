@@ -1,3 +1,4 @@
+﻿
 using System;
 using System.Text.RegularExpressions;
 
@@ -15,7 +16,6 @@ class Program
 
         // Виводимо кількість знайдених речень
         Console.WriteLine("Кількість речень, які починаються зі слова 'Інформатика': " + matches.Count);
-
     }
 }
 
@@ -50,8 +50,4 @@ class Program
 //            Console.WriteLine(match.Value);
 //        }
 //    }
-
 //}
-
-//}
-
