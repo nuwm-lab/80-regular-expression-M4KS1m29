@@ -10,12 +10,12 @@ class Program
 
         // Регулярний вираз для пошуку речень, що починаються зі слова "Інформатика"
         string pattern = @"\bІнформатика\b";
-
         // Знаходимо всі збіги
         MatchCollection matches = Regex.Matches(text, pattern, RegexOptions.IgnoreCase);
 
         // Виводимо кількість знайдених речень
         Console.WriteLine("Кількість речень, які починаються зі слова 'Інформатика': " + matches.Count);
+
     }
 }
 
