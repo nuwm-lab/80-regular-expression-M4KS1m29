@@ -1,53 +1,45 @@
-﻿
 using System;
 using System.Text.RegularExpressions;
 
-class Program
+namespace TextValidationWithRegex
 {
-    static void Main()
+    class Program
     {
-        string text = "Інформатика - це наука про інформацію. Інформатика включає різні розділи. Програмування - це частина інформатики.";
+        /// <summary>
+        /// Перевіряє, чи всі слова у тексті починаються з великої літери за допомогою регулярного виразу.
+        /// </summary>
+        /// <param name="text">Вхідний текст</param>
+        /// <returns>Повертає true, якщо всі слова починаються з великої літери; інакше false</returns>
+        static bool AreAllWordsCapitalized(string text)
+        {
+            // Регулярний вираз для пошуку слів
+            string pattern = @"\b[A-ZА-ЯЁ][a-zа-яё]*\b";
 
-        // Регулярний вираз для пошуку речень, що починаються зі слова "Інформатика"
-        string pattern = @"\bІнформатика\b";
+            // Використовуємо регулярний вираз для пошуку всіх слів
+            MatchCollection matches = Regex.Matches(text, pattern);
 
-        // Знаходимо всі збіги
-        MatchCollection matches = Regex.Matches(text, pattern, RegexOptions.IgnoreCase);
+            // Розбиваємо текст на слова для перевірки кількості
+            string[] words = text.Split(new char[] { ' ', '\t', '\n', '\r', '.', ',', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
 
-        // Виводимо кількість знайдених речень
-        Console.WriteLine("Кількість речень, які починаються зі слова 'Інформатика': " + matches.Count);
+            // Перевіряємо, чи кількість знайдених збігів дорівнює кількості слів
+            return matches.Count == words.Length;
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Введіть текст:");
+            string input = Console.ReadLine();
+
+            bool allWordsCapitalized = AreAllWordsCapitalized(input);
+
+            if (allWordsCapitalized)
+            {
+                Console.WriteLine("Усі слова починаються з великої літери.");
+            }
+            else
+            {
+                Console.WriteLine("Не всі слова починаються з великої літери.");
+            }
+        }
     }
 }
-
-//Додаткове завдання!!
-
-
-//using System;
-//using System.Text.RegularExpressions;
-
-//class Program
-//{
-//    static void Main()
-//    {
-//        string text = "вк 0964 вс." +
-//            "аа 0924 нк." +
-//            "вн 3542 то." +
-//            "нн 7891 цу." +
-//            "ск 5435 фк." +
-//            "но 9003 ва." +
-//            "вк 4098 он." +
-//            "ак 4060 пк." +
-//            "ао 4060 пк." +
-//            "вм 8932 фу.";
-
-//        string pattern = @"\bвк \d{4} [а-я]{2}\b";
-
-//        MatchCollection matches = Regex.Matches(text, pattern, RegexOptions.IgnoreCase);
-
-//        Console.WriteLine("Номерні знаки, що починаються на 'вк':");
-//        foreach (Match match in matches)
-//        {
-//            Console.WriteLine(match.Value);
-//        }
-//    }
-//}
