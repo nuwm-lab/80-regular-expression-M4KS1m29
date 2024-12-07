@@ -1,32 +1,45 @@
-﻿using System;
+using System;
 using System.Text.RegularExpressions;
 
-class Program
+namespace TextValidationWithRegex
 {
-    static void Main(string[] args)
+    class Program
     {
-        Console.WriteLine("Введіть текст для перевірки:");
-        string inputText = Console.ReadLine();
-
-        // Регулярний вираз для перевірки, чи всі слова починаються з великої літери
-        string pattern = "\\b[A-ZА-ЯЁ][a-zа-яё]*\\b";
-
-        // Знайти всі слова в тексті
-        MatchCollection matches = Regex.Matches(inputText, pattern);
-
-        // Розбиваємо текст на слова
-        string[] words = inputText.Split(new char[] { ' ', '\t', '\n', '\r', '.', ',', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
-
-        // Перевірка
-        bool allWordsStartWithCapital = matches.Count == words.Length;
-
-        if (allWordsStartWithCapital)
+        /// <summary>
+        /// Перевіряє, чи всі слова у тексті починаються з великої літери за допомогою регулярного виразу.
+        /// </summary>
+        /// <param name="text">Вхідний текст</param>
+        /// <returns>Повертає true, якщо всі слова починаються з великої літери; інакше false</returns>
+        static bool AreAllWordsCapitalized(string text)
         {
-            Console.WriteLine("Всі слова починаються з великої літери.");
+            // Регулярний вираз для пошуку слів
+            string pattern = @"\b[A-ZА-ЯЁ][a-zа-яё]*\b";
+
+            // Використовуємо регулярний вираз для пошуку всіх слів
+            MatchCollection matches = Regex.Matches(text, pattern);
+
+            // Розбиваємо текст на слова для перевірки кількості
+            string[] words = text.Split(new char[] { ' ', '\t', '\n', '\r', '.', ',', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Перевіряємо, чи кількість знайдених збігів дорівнює кількості слів
+            return matches.Count == words.Length;
         }
-        else
+
+        static void Main(string[] args)
         {
-            Console.WriteLine("Не всі слова починаються з великої літери.");
+            Console.WriteLine("Введіть текст:");
+            string input = Console.ReadLine();
+
+            bool allWordsCapitalized = AreAllWordsCapitalized(input);
+
+            if (allWordsCapitalized)
+            {
+                Console.WriteLine("Усі слова починаються з великої літери.");
+            }
+            else
+            {
+                Console.WriteLine("Не всі слова починаються з великої літери.");
+            }
         }
     }
 }
